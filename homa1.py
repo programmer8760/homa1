@@ -1,15 +1,14 @@
-import sys
-sys.path.append('/lib')
 from time import sleep
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
-from turtle import *
+from tkinter.messagebox import showerror
 import turtle
-from math import *
+from turtle import *
+from math import degrees
 from PIL import ImageGrab
-from sympy import *
+from sympy import Triangle, Segment, N, sqrt, intersection
 
 def triangleSOSelected(event): #при изменении способа задания треугольника
     selection = triangleSOCombobox.get()
@@ -72,8 +71,11 @@ def generate(): #генерация треугольника
             SPtriangle = Triangle(asa=(int(input1), int(input2), int(input3)))
         elif triangleSetVar == "3 стороны":
             SPtriangle = Triangle(sss=(int(input1), int(input2), int(input3)))
+        if SPtriangle == None:
+            showerror(title="🍬", message="Невозможно нарисовать треугольник с такими входными данными")
+            return
     else:
-        print("введи")
+        showerror(title="🔔", message="Введите все данные")
         return
     nameVar = nameEntry.get()
     if len(nameVar) == 0: nameVar = "ABC"
@@ -158,7 +160,6 @@ def generate(): #генерация треугольника
             tur.setheading(ang) if i == 0 else tur.setheading(180-ang) if i == 1 else tur.setheading(-ang-degrees(N(SPtriangle.angles[SPtriangle.vertices[1]])))
             tur.pendown()
             tur.forward(l*50)
-            #tur.setpos(N(SPtriangle.bisectors()[SPtriangle.vertices[i]].points[1][0])*50-300, N(SPtriangle.bisectors()[SPtriangle.vertices[i]].points[1][1])*50-300)
             if showNames:
                 tur.write("L", move=False, align="center", font=("Times New Roman", 20, "normal"))
                 tur.penup()
@@ -183,7 +184,6 @@ def generate(): #генерация треугольника
             tur.setheading(ang) if i == 1 else tur.setheading(180-ang) if i == 2 else tur.setheading(-90)
             tur.pendown()
             tur.forward(h*50)
-            #tur.setpos(N(SPtriangle.altitudes[SPtriangle.vertices[i-1]].points[1][0])*50-300, N(SPtriangle.altitudes[SPtriangle.vertices[i-1]].points[1][1])*50-300)
             if showNames:
                 tur.write("H", move=False, align="center", font=("Times New Roman", 20, "normal"))
                 tur.penup()
