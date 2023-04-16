@@ -56,6 +56,7 @@ tur.width(3)
 turtleRoot = turtle.getcanvas().winfo_toplevel()
 turtleRoot.withdraw()
 turtleRoot.protocol("WM_DELETE_WINDOW", on_tur_closing)
+turtleRoot.title("homa1 - чертёж")
 
 def generate(): #генерация треугольника
     tur.clear()
